@@ -11,3 +11,10 @@
 <a href="https://github.com/tonydoesathing/quickcheck-backend" alt="Figma"><img src="https://img.shields.io/github/last-commit/tonydoesathing/quickcheck-backend" /></a> 
 
 [QuickCheck](https://github.com/tonydoesathing/quickcheck) is a cross-platform application for teachers that assists in rapid formative assessment so they can focus more on teaching and less on organization. This project provides the networked synchronization required to run [QuickCheck](https://github.com/tonydoesathing/quickcheck).
+
+## Setup
+Ensure that you're using Python3.
+Run `python -m venv .env` in the source directory, and then `.env/Scripts/activate`, `python -m pip install -r requirements.txt`, and `python manage.py migrate`, in that order. It should create the database.
+
+## Running
+Simply run `python ./manage.py run`
