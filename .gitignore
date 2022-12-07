@@ -140,3 +140,7 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 *.sqlite3
+
+# UML diagrams #
+*.dot
+/*.png

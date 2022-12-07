@@ -18,3 +18,8 @@ Run `python -m venv .env` in the source directory, and then `.env/Scripts/activa
 
 ## Running
 Simply run `python ./manage.py run`
+
+## Generating UML diagram
+Run `python manage.py graph_models -a -g --dot -o quickcheck-backend.dot`; this will export a GraphViz .dot file.
+Ensure that you have GraphViz enabled.
+Run `dot.exe -Tpng quickcheck-backend.dot -o quickcheck-backend-uml.png`
