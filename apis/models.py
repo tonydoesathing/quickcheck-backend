@@ -17,7 +17,7 @@ class Group(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=200)
     date = models.DateTimeField(auto_now=True)
-    group = models.ForeignKey(Group, models.SET_NULL, null=True)
+    groups = models.ManyToManyField(Group)
 
     def __str__(self):
         return self.name
