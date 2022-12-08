@@ -2,23 +2,45 @@ from django.shortcuts import render
 
 from django.http import JsonResponse
 from .models import Assessment, Student, Group
-from .serializers import AssessmentSerializer, StudentSerializer, GroupSerializer, GetGroupSerializer
+from .serializers import AssessmentSerializer, GetAssessmentSerializer, StudentSerializer, GroupSerializer, GetGroupSerializer, StudentScoreSerializer, GroupScoreSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+import django.core.exceptions
+
+#
+def create_scores(scores, is_student, assessment_id):
+    score_type = ["group", "student"][is_student] 
+    for score in scores:
+        score_object = {score_type: score[score_type+"_id"], "score": score["score"], "assessment": assessment_id}
+        if is_student:
+            serializer = StudentScoreSerializer(data=score_object)
+        else:
+            serializer = GroupScoreSerializer(data=score_object)
+        if serializer.is_valid():
+            serializer.save()
+        else:
+            raise Exception(django.core.exceptions.BadRequest)
 
 @api_view(['GET', 'POST'])
 def assessments(request):
 
     if request.method == 'GET':
         assessments = Assessment.objects.all()
-        serializer = AssessmentSerializer(assessments, many=True)
+        serializer = GetAssessmentSerializer(assessments, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        student_scores = request.data.pop("student_scores")
+        group_scores = request.data.pop("group_scores")
         serializer = AssessmentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            try:
+                create_scores(student_scores, True, serializer.data["id"])
+                create_scores(group_scores, False, serializer.data["id"])
+            except:
+                return Response(status.HTTP_400_BAD_REQUEST)
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(status.HTTP_400_BAD_REQUEST)
 
@@ -31,7 +53,7 @@ def assessment(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = AssessmentSerializer(assessment)
+        serializer = GetAssessmentSerializer(assessment)
         return Response(serializer.data)
     elif request.method == 'PUT':
         serializer = AssessmentSerializer(assessment, data=request.data)
