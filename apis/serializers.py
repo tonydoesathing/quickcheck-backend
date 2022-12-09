@@ -28,6 +28,32 @@ class StudentSerializer(serializers.ModelSerializer):
         model = Student
         fields = ['id', 'name', 'date', 'groups']
 
+class GetStudentScoreSerializer(serializers.ModelSerializer):
+
+    student = serializers.SerializerMethodField()
+
+    def get_student(self, obj):
+        serializer = StudentSerializer(obj.student)
+        serialized_student = serializer.data
+        return serialized_student
+
+    class Meta:
+        model = StudentScore
+        fields = ['score', 'student', 'assessment']
+
+class GetGroupScoreSerializer(serializers.ModelSerializer):
+
+    group = serializers.SerializerMethodField()
+
+    def get_group(self, obj):
+        serializer = StudentSerializer(obj.group)
+        serialized_group = serializer.data
+        return serialized_group
+
+    class Meta:
+        model = GroupScore
+        fields = ['score', 'group', 'assessment']
+
 class StudentScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentScore
@@ -47,7 +73,7 @@ class GetAssessmentSerializer(serializers.ModelSerializer):
         student_scores = obj.studentscore_set.all()
         serialized_student_scores = []
         for score in student_scores:
-            serializer = StudentScoreSerializer(score)
+            serializer = GetStudentScoreSerializer(score)
             serialized_student_scores.append(serializer.data)
         return serialized_student_scores
 
@@ -55,7 +81,7 @@ class GetAssessmentSerializer(serializers.ModelSerializer):
         group_scores = obj.groupscore_set.all()
         serialized_group_scores = []
         for score in group_scores:
-            serializer = GroupScoreSerializer(score)
+            serializer = GetGroupScoreSerializer(score)
             serialized_group_scores.append(serializer.data)
         return serialized_group_scores
 
