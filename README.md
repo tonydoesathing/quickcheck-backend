@@ -17,7 +17,7 @@ Ensure that you're using Python3.
 Run `python -m venv .env` in the source directory, and then `.env/Scripts/activate`, `python -m pip install -r requirements.txt`, and `python manage.py migrate`, in that order. It should create the database.
 
 ## Running
-Simply run `python ./manage.py run`
+Simply run `python ./manage.py runserver`
 
 ## Generating UML diagram
 Run `python manage.py graph_models -a -g --dot -o quickcheck-backend.dot`; this will export a GraphViz .dot file.
