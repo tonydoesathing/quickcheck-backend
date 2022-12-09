@@ -15,18 +15,18 @@ class GetGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date', 'student_set']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set']
 
 class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date', 'student_set']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set']
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'name', 'date', 'groups']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'groups']
 
 class GetStudentScoreSerializer(serializers.ModelSerializer):
 
@@ -87,10 +87,10 @@ class GetAssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date', 'studentscore_set', 'groupscore_set']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'studentscore_set', 'groupscore_set']
 
 class AssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date']
+        fields = ['id', 'name', 'date_edited', 'date_created']
