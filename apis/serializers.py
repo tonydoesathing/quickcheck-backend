@@ -39,7 +39,7 @@ class GetStudentScoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentScore
-        fields = ['score', 'date_edited', 'date_created', 'student', 'assessment']
+        fields = ['score', 'student', 'assessment']
 
 class GetGroupScoreSerializer(serializers.ModelSerializer):
 
