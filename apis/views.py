@@ -100,7 +100,10 @@ def group(request, id):
         serializer = GroupSerializer(group, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            # return data as if get group called
+            group = Group.objects.get(pk=serializer.data["id"])
+            group_serializer = GetGroupSerializer(group)
+            return Response(group_serializer.data)
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
