@@ -46,7 +46,7 @@ class GetGroupScoreSerializer(serializers.ModelSerializer):
     group = serializers.SerializerMethodField()
 
     def get_group(self, obj):
-        serializer = StudentSerializer(obj.group)
+        serializer = GetGroupSerializer(obj.group)
         serialized_group = serializer.data
         return serialized_group
 
