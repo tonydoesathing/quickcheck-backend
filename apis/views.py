@@ -78,7 +78,10 @@ def groups(request):
         serializer = GroupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
+            # return data as if get group called
+            group = Group.objects.get(pk=serializer.data["id"])
+            group_serializer = GetGroupSerializer(group)
+            return Response(group_serializer.data, status = status.HTTP_201_CREATED)
         return Response(status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
