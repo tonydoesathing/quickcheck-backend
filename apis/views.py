@@ -41,7 +41,11 @@ def assessments(request):
                 create_scores(group_scores, False, serializer.data["id"])
             except:
                 return Response(status.HTTP_400_BAD_REQUEST)
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
+            
+            # return data as if get assessment called
+            assessment = Assessment.objects.get(pk=serializer.data["id"])
+            assessment_serializer = GetAssessmentSerializer(assessment)
+            return Response(assessment_serializer.data, status = status.HTTP_201_CREATED)
         return Response(status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -59,7 +63,10 @@ def assessment(request, id):
         serializer = AssessmentSerializer(assessment, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            # return data as if get assessment called
+            assessment = Assessment.objects.get(pk=serializer.data["id"])
+            assessment_serializer = GetAssessmentSerializer(assessment)
+            return Response(assessment_serializer.data)
         return Response(status = status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
         assessment.delete()
