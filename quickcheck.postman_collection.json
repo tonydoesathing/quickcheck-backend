@@ -14,7 +14,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/",
+							"raw": "127.0.0.1:8000/api/students/?student_class=2",
 							"host": [
 								"127",
 								"0",
@@ -26,6 +26,12 @@
 								"api",
 								"students",
 								""
+							],
+							"query": [
+								{
+									"key": "student_class",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -84,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [2],\r\n    \"student_class\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [2],\r\n    \"student_class\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,7 +158,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/",
+							"raw": "127.0.0.1:8000/api/groups/?student_class=1",
 							"host": [
 								"127",
 								"0",
@@ -164,6 +170,12 @@
 								"api",
 								"groups",
 								""
+							],
+							"query": [
+								{
+									"key": "student_class",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -222,7 +234,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [],\r\n    \"student_class\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [],\r\n    \"student_class\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -290,7 +302,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/",
+							"raw": "127.0.0.1:8000/api/assessments/?student_class=1",
 							"host": [
 								"127",
 								"0",
@@ -302,6 +314,12 @@
 								"api",
 								"assessments",
 								""
+							],
+							"query": [
+								{
+									"key": "student_class",
+									"value": "1"
+								}
 							]
 						}
 					},
