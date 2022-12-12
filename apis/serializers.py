@@ -19,18 +19,18 @@ class GetGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'student_class']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id']
 
 class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'student_class']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id']
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id', 'name', 'date_edited', 'date_created', 'groups', 'student_class']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'groups', 'class_id']
 
 class GetStudentScoreSerializer(serializers.ModelSerializer):
 
@@ -85,13 +85,13 @@ class GetAssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date_edited', 'date_created', 'studentscore_set', 'groupscore_set', 'student_class']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'studentscore_set', 'groupscore_set', 'class_id']
 
 class AssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date_edited', 'date_created', 'student_class']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'class_id']
 
 class StudentClassSerializer(serializers.ModelSerializer):
     class Meta:

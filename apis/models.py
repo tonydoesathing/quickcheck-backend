@@ -12,7 +12,7 @@ class Group(models.Model):
     name = models.CharField(max_length=300)
     date_edited = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    student_class = models.ForeignKey(StudentClass, models.CASCADE)
+    class_id = models.ForeignKey(StudentClass, models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class Student(models.Model):
     date_edited = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
     groups = models.ManyToManyField(Group, blank=True)
-    student_class = models.ForeignKey(StudentClass, models.CASCADE)
+    class_id = models.ForeignKey(StudentClass, models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class Assessment(models.Model):
     name = models.CharField(max_length=300)
     date_edited = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    student_class = models.ForeignKey(StudentClass, models.CASCADE)
+    class_id = models.ForeignKey(StudentClass, models.CASCADE)
 
     def __str__(self):
         return self.name

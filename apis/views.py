@@ -26,9 +26,9 @@ def assessments(request):
 
     if request.method == 'GET':
         assessments = Assessment.objects.all()
-        class_id = request.query_params.get('student_class')
+        class_id = request.query_params.get('class_id')
         if class_id is not None:
-            assessments = assessments.filter(student_class=class_id)
+            assessments = assessments.filter(class_id=class_id)
         serializer = GetAssessmentSerializer(assessments, many=True)
         return Response(serializer.data)
 
@@ -80,9 +80,9 @@ def groups(request):
 
     if request.method == 'GET':
         groups = Group.objects.all()
-        class_id = request.query_params.get('student_class')
+        class_id = request.query_params.get('class_id')
         if class_id is not None:
-            groups = groups.filter(student_class=class_id)
+            groups = groups.filter(class_id=class_id)
         serializer = GetGroupSerializer(groups, many=True)
         return Response(serializer.data)
 
@@ -128,9 +128,9 @@ def students(request):
 
     if request.method == 'GET':
         students = Student.objects.all()
-        class_id = request.query_params.get('student_class')
+        class_id = request.query_params.get('class_id')
         if class_id is not None:
-            students = students.filter(student_class=class_id)
+            students = students.filter(class_id=class_id)
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
 
