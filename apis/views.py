@@ -2,13 +2,12 @@ from django.shortcuts import render
 
 from django.http import JsonResponse
 from .models import Assessment, Student, Group, StudentClass
-from .serializers import AssessmentSerializer, GetAssessmentSerializer, StudentSerializer, GroupSerializer, GetGroupSerializer, StudentScoreSerializer, GroupScoreSerializer, StudentClassSerializer
+from .serializers import AssessmentSerializer, GetAssessmentSerializer, StudentSerializer, GroupSerializer, GetGroupSerializer, StudentScoreSerializer, GroupScoreSerializer, StudentClassSerializer, GetStudentClassSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import django.core.exceptions
 
-#
 def create_scores(scores, is_student, assessment_id):
     score_type = ["group", "student"][is_student] 
     for score in scores:
@@ -160,7 +159,7 @@ def student_classes(request):
 
     if request.method == 'GET':
         students = StudentClass.objects.all()
-        serializer = StudentClassSerializer(students, many=True)
+        serializer = GetStudentClassSerializer(students, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
@@ -179,7 +178,7 @@ def student_class(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = StudentClassSerializer(student)
+        serializer = GetStudentClassSerializer(student)
         return Response(serializer.data)
     elif request.method == 'PUT':
         serializer = StudentClassSerializer(student, data=request.data)

@@ -98,4 +98,27 @@ class StudentClassSerializer(serializers.ModelSerializer):
         model = StudentClass
         fields = ['id', 'name', 'date_created', 'date_edited']
 
-# Add GetStudentClassSerializer
+class GetStudentClassSerializer(serializers.ModelSerializer):
+
+    student_set = serializers.SerializerMethodField()
+    group_set = serializers.SerializerMethodField()
+    assessment_set = serializers.SerializerMethodField()
+
+    def get_student_set(self, obj):
+        students = obj.student_set.all()
+        serialized_students = get_entity_objects(students, StudentSerializer)
+        return serialized_students
+
+    def get_group_set(self, obj):
+        groups = obj.group_set.all()
+        serialized_groups = get_entity_objects(groups, GetGroupSerializer)
+        return serialized_groups
+
+    def get_assessment_set(self, obj):
+        assessments = obj.assessment_set.all()
+        serialized_assessments = get_entity_objects(assessments, GetAssessmentSerializer)
+        return serialized_assessments
+    
+    class Meta:
+        model = StudentClass
+        fields = ['id', 'name', 'date_created', 'date_edited', 'student_set', 'group_set', 'assessment_set']
