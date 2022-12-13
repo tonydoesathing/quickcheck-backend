@@ -167,6 +167,8 @@ def student(request, id):
 def student_classes(request):
 
     if request.method == 'GET':
+        # print(request.auth)
+        # print(request.user)
         students = StudentClass.objects.all()
         serializer = GetStudentClassSerializer(students, many=True)
         return Response(serializer.data)
