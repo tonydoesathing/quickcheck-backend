@@ -27,3 +27,4 @@ Run `dot.exe -Tpng quickcheck-backend.dot -o quickcheck-backend-uml.png`
 ## Authentication
 Users currently need to be added manually via 'python manage.py createsuperuser'.
 A token can be retrieved by the /auth/api-token-auth/ endpoint (see postman collection).
+Token must be put in the value field in the authentication tab in the quickcheck collection.
