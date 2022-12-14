@@ -12,7 +12,13 @@
 					"name": "get_students",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
+								"type": "default"
+							}
+						],
 						"url": {
 							"raw": "127.0.0.1:8000/api/students/?class_id=2",
 							"host": [
@@ -90,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [2],\r\n    \"student_class\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [2],\r\n    \"class_id\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,7 +240,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [],\r\n    \"student_class\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [],\r\n    \"class_id\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -378,7 +384,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"assessment\",\r\n    \"student_class\": 1,\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 1,\r\n            \"score\": 2\r\n        }\r\n    ],\r\n    \"group_scores\": [\r\n        {\r\n            \"group_id\": 2,\r\n            \"score\": 2\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"assessment\",\r\n    \"class_id\": 1,\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 1,\r\n            \"score\": 2\r\n        }\r\n    ],\r\n    \"group_scores\": [\r\n        {\r\n            \"group_id\": 2,\r\n            \"score\": 2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -574,6 +580,143 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "user_list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:8000/auth/users/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auth_token",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test\",\r\n    \"password\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/auth/api-token-auth/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"api-token-auth",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Token d61d0a40ff2c4a492489c632e768c0d2d0da8854",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
+			"type": "default"
 		}
 	]
 }
