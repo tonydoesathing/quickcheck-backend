@@ -10,6 +10,8 @@ def get_entity_objects(entities, entity_serializer):
 
 class GetGroupSerializer(serializers.ModelSerializer):
 
+    user = serializers.ReadOnlyField(source='user.username')
+
     student_set = serializers.SerializerMethodField()
 
     def get_student_set(self, obj):
@@ -19,18 +21,23 @@ class GetGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id', 'user']
 
 class GroupSerializer(serializers.ModelSerializer):
 
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Group
-        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'student_set', 'class_id', 'user']
 
 class StudentSerializer(serializers.ModelSerializer):
+
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Student
-        fields = ['id', 'name', 'date_edited', 'date_created', 'groups', 'class_id']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'groups', 'class_id', 'user']
 
 class GetStudentScoreSerializer(serializers.ModelSerializer):
 
@@ -70,6 +77,8 @@ class GroupScoreSerializer(serializers.ModelSerializer):
 
 class GetAssessmentSerializer(serializers.ModelSerializer):
 
+    user = serializers.ReadOnlyField(source='user.username')
+
     studentscore_set = serializers.SerializerMethodField()
     groupscore_set = serializers.SerializerMethodField()
 
@@ -85,20 +94,27 @@ class GetAssessmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date_edited', 'date_created', 'studentscore_set', 'groupscore_set', 'class_id']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'studentscore_set', 'groupscore_set', 'class_id', 'user']
 
 class AssessmentSerializer(serializers.ModelSerializer):
 
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Assessment
-        fields = ['id', 'name', 'date_edited', 'date_created', 'class_id']
+        fields = ['id', 'name', 'date_edited', 'date_created', 'class_id', 'user']
 
 class StudentClassSerializer(serializers.ModelSerializer):
+
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = StudentClass
-        fields = ['id', 'name', 'date_created', 'date_edited']
+        fields = ['id', 'name', 'date_created', 'date_edited', 'user']
 
 class GetStudentClassSerializer(serializers.ModelSerializer):
+
+    user = serializers.ReadOnlyField(source='user.username')
 
     student_set = serializers.SerializerMethodField()
     group_set = serializers.SerializerMethodField()
@@ -121,4 +137,4 @@ class GetStudentClassSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = StudentClass
-        fields = ['id', 'name', 'date_created', 'date_edited', 'student_set', 'group_set', 'assessment_set']
+        fields = ['id', 'name', 'date_created', 'date_edited', 'student_set', 'group_set', 'assessment_set', 'user']
