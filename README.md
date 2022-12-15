@@ -28,3 +28,16 @@ Run `dot.exe -Tpng quickcheck-backend.dot -o quickcheck-backend-uml.png`
 Users currently need to be added manually via 'python manage.py createsuperuser'.
 A token can be retrieved by the /auth/api-token-auth/ endpoint (see postman collection).
 Token must be put in the value field in the authentication tab in the quickcheck collection.
+
+## HTTPS
+https://timonweb.com/django/https-django-development-server-ssl-certificate/
+Installed chocolatey https://chocolatey.org/install
+
+choco install mkcert
+mkcert -install
+cd root_of_django_project
+mkcert -cert-file cert.pem -key-file key.pem localhost 127.0.0.1
+
+pip install django-extensions Werkzeug
+
+python manage.py runserver_plus --cert-file cert.pem --key-file key.pem
