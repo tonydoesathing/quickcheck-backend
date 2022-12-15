@@ -23,6 +23,19 @@ def create_scores(scores, is_student, assessment_id):
         else:
             raise Exception(django.core.exceptions.BadRequest)
 
+def class_authorized(user, class_id):
+    classes = StudentClass.objects.all().filter(user = user)
+    class_ids = [c.id for c in classes]
+    return class_id in class_ids
+
+def group_authorized(user, group):
+    groups = Group.objects.all().filter(user = user)
+    group_ids = [g.id for g in groups]
+    for g in group:
+        if not g in group_ids:
+            return False
+    return True
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def assessments(request):
@@ -36,6 +49,8 @@ def assessments(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not class_authorized(request.user, request.data["class_id"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         student_scores = request.data.pop("student_scores")
         group_scores = request.data.pop("group_scores")
         serializer = AssessmentSerializer(data=request.data)
@@ -70,6 +85,8 @@ def assessment(request, id):
         serializer = GetAssessmentSerializer(assessment)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        if not class_authorized(request.user, request.data["class_id"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = AssessmentSerializer(assessment, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -96,6 +113,8 @@ def groups(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not class_authorized(request.user, request.data["class_id"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = GroupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -123,6 +142,8 @@ def group(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        if not class_authorized(request.user, request.data["class_id"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = GroupSerializer(group, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -150,6 +171,9 @@ def students(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not class_authorized(request.user, request.data["class_id"]) or not group_authorized(request.user, request.data["groups"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -166,13 +190,14 @@ def student(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if not student.user == request.user:
-        return Response(
-            {'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
+        return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
 
     if request.method == 'GET':
         serializer = StudentSerializer(student)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        if not class_authorized(request.user, request.data["class_id"]) or not group_authorized(request.user, request.data["groups"]):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = StudentSerializer(student, data=request.data)
         if serializer.is_valid():
             serializer.save()
