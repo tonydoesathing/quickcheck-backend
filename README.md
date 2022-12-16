@@ -25,6 +25,7 @@ Ensure that you have GraphViz enabled.
 Run `dot.exe -Tpng quickcheck-backend.dot -o quickcheck-backend-uml.png`
 
 ## Authentication
-Users currently need to be added manually via 'python manage.py createsuperuser'.
+Admin users can be added via 'python manage.py createsuperuser'.
+Further users can be added by logging into `{server-ip}/admin` and adding them in the "Users" section.
 A token can be retrieved by the /auth/api-token-auth/ endpoint (see postman collection).
-Token must be put in the value field in the authentication tab in the quickcheck collection.
+Token must be put in the "Authorization" field in the http header following the `Token {token}` convention.
