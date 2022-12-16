@@ -23,3 +23,9 @@ Simply run `python ./manage.py runserver`
 Run `python manage.py graph_models -a -g --dot -o quickcheck-backend.dot`; this will export a GraphViz .dot file.
 Ensure that you have GraphViz enabled.
 Run `dot.exe -Tpng quickcheck-backend.dot -o quickcheck-backend-uml.png`
+
+## Authentication
+Admin users can be added via 'python manage.py createsuperuser'.
+Further users can be added by logging into `{server-ip}/admin` and adding them in the "Users" section.
+A token can be retrieved by the /auth/api-token-auth/ endpoint (see postman collection).
+Token must be put in the "Authorization" field in the http header following the `Token {token}` convention.
