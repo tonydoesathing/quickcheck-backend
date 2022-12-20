@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.http import JsonResponse
-from .models import Assessment, Student, Group, StudentClass
+from .models import Assessment, Student, Group, StudentClass, StudentScore, GroupScore
 from .serializers import AssessmentSerializer, GetAssessmentSerializer, StudentSerializer, GroupSerializer, GetGroupSerializer, StudentScoreSerializer, GroupScoreSerializer, StudentClassSerializer, GetStudentClassSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -70,9 +70,20 @@ def assessment(request, id):
         serializer = GetAssessmentSerializer(assessment)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        student_scores = request.data.pop("student_scores")
+        group_scores = request.data.pop("group_scores")
         serializer = AssessmentSerializer(assessment, data=request.data)
+
         if serializer.is_valid():
             serializer.save()
+            # delete all previous scores connected to this assessment:
+            StudentScore.objects.all().filter(assessment=serializer.data["id"]).delete()
+            GroupScore.objects.all().filter(assessment=serializer.data["id"]).delete()
+            try:
+                create_scores(student_scores, True, serializer.data["id"])
+                create_scores(group_scores, False, serializer.data["id"])
+            except:
+                return Response(status.HTTP_400_BAD_REQUEST)
             # return data as if get assessment called
             assessment = Assessment.objects.get(pk=serializer.data["id"])
             assessment_serializer = GetAssessmentSerializer(assessment)
