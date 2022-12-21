@@ -10,6 +10,56 @@ import django.core.exceptions
 from .custompermission import IsCurrentUserOwner
 from rest_framework.permissions import IsAuthenticated
 
+class OwnershipVerifier:
+
+    def verify_object(self, user, object):
+        if "student_set" in object:
+            student_set = object["student_set"]
+            for student in student_set:
+                if not self.verify_student(student, user):
+                    return False
+        if "class_id" in object:
+            class_id = object["class_id"]
+            if not self.verify_class(class_id, user):
+                return False
+        if "groups" in object:
+            groups = object["groups"]
+            for group in groups:
+                if not self.verify_group(group, user):
+                    return False
+        if "student_scores" in object:
+            student_scores = object["student_scores"]
+            for score in student_scores:
+                student = score["student_id"]
+                if not self.verify_student(student, user):
+                    return False
+        if "group_scores" in object:
+            group_scores = object["group_scores"]
+            for score in group_scores:
+                group = score["group_id"]
+                if not self.verify_group(group, user):
+                    return False
+        
+        return True
+
+
+    def verify_group(self, id, user):
+        group = Group.objects.get(pk=id)
+        owner = group.user
+        return owner == user
+
+    def verify_student(self, id, user):
+        student = Student.objects.get(pk=id)
+        owner = student.user
+        return owner == user
+
+    def verify_class(self, id, user):
+        student_class = StudentClass.objects.get(pk=id)
+        owner = student_class.user
+        return owner == user
+
+verifier = OwnershipVerifier()
+
 def create_scores(scores, is_student, assessment_id):
     score_type = ["group", "student"][is_student] 
     for score in scores:
@@ -22,6 +72,7 @@ def create_scores(scores, is_student, assessment_id):
             serializer.save()
         else:
             raise Exception(django.core.exceptions.BadRequest)
+
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -36,6 +87,8 @@ def assessments(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         student_scores = request.data.pop("student_scores")
         group_scores = request.data.pop("group_scores")
         serializer = AssessmentSerializer(data=request.data)
@@ -70,6 +123,8 @@ def assessment(request, id):
         serializer = GetAssessmentSerializer(assessment)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         student_scores = request.data.pop("student_scores")
         group_scores = request.data.pop("group_scores")
         serializer = AssessmentSerializer(assessment, data=request.data)
@@ -107,6 +162,8 @@ def groups(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = GroupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -134,6 +191,8 @@ def group(request, id):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = GroupSerializer(group, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -161,6 +220,9 @@ def students(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
+
         serializer = StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -177,13 +239,14 @@ def student(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if not student.user == request.user:
-        return Response(
-            {'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
+        return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
 
     if request.method == 'GET':
         serializer = StudentSerializer(student)
         return Response(serializer.data)
     elif request.method == 'PUT':
+        if not verifier.verify_object(request.user, request.data):
+            return Response({'message': 'You are not authorizated'}, status=status.HTTP_403_FORBIDDEN)
         serializer = StudentSerializer(student, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -235,3 +298,4 @@ def student_class(request, id):
     elif request.method == 'DELETE':
         student.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
+
