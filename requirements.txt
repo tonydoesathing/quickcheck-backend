@@ -6,3 +6,4 @@ sqlparse==0.4.3
 tzdata==2022.7
 django-extensions==3.2.1
 django-cors-headers==3.13.0
+django-rest-knox==4.2.0

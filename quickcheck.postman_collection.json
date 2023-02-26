@@ -16,18 +16,15 @@
 							{
 								"key": "Authorization",
 								"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
-								"type": "default"
+								"type": "default",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/?class_id=2",
+							"raw": "{{address}}/api/students/?class_id=1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"students",
@@ -36,7 +33,7 @@
 							"query": [
 								{
 									"key": "class_id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -49,18 +46,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/4",
+							"raw": "{{address}}/api/students/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"students",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -72,14 +65,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/5",
+							"raw": "{{address}}/api/students/5",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"students",
@@ -96,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [2],\r\n    \"class_id\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"bob\",\r\n    \"groups\": [1],\r\n    \"class_id\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,14 +93,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/",
+							"raw": "{{address}}/api/students/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"students",
@@ -136,14 +121,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/students/1",
+							"raw": "{{address}}/api/students/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"students",
@@ -164,14 +145,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/?class_id=2",
+							"raw": "{{address}}/api/groups/?class_id=2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"groups",
@@ -193,18 +170,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/2",
+							"raw": "{{address}}/api/groups/4",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"groups",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -216,18 +189,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/2",
+							"raw": "{{address}}/api/groups/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"groups",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -237,10 +206,17 @@
 					"name": "add_group",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://www.someorigin.com",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [],\r\n    \"class_id\": 2\r\n}",
+							"raw": "{\r\n    \"name\": \"Todd\",\r\n    \"student_set\": [1,2,3],\r\n    \"class_id\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,14 +224,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/",
+							"raw": "{{address}}/api/groups/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"groups",
@@ -280,14 +252,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/groups/1",
+							"raw": "{{address}}/api/groups/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"groups",
@@ -308,14 +276,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/?class_id=1",
+							"raw": "{{address}}/api/assessments/?class_id=1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
@@ -337,18 +301,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/2",
+							"raw": "{{address}}/api/assessments/3",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -360,18 +320,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/2",
+							"raw": "{{address}}/api/assessments/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -384,7 +340,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"assessment\",\r\n    \"class_id\": 1,\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 1,\r\n            \"score\": 2\r\n        }\r\n    ],\r\n    \"group_scores\": [\r\n        {\r\n            \"group_id\": 2,\r\n            \"score\": 2\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"assessment\",\r\n    \"class_id\": 5,\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 1,\r\n            \"score\": 2\r\n        }\r\n    ],\r\n    \"group_scores\": [\r\n        {\r\n            \"group_id\": 1,\r\n            \"score\": 2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -392,14 +348,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/",
+							"raw": "{{address}}/api/assessments/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
@@ -416,7 +368,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"assessment\",\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 1,\r\n            \"score\": 4\r\n        }\r\n    ],\r\n    \"group_scores\": [\r\n    ],\r\n    \"student_class\": 1\r\n}",
+							"raw": "{\r\n    \"name\": \"ass\",\r\n    \"class_id\": 8,\r\n    \"student_scores\": [\r\n        {\r\n            \"student_id\": 42,\r\n            \"score\": 3\r\n        }\r\n    ],\r\n    \"group_scores\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -424,18 +376,14 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/1",
+							"raw": "{{address}}/api/assessments/2",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -452,14 +400,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/classes/",
+							"raw": "{{address}}/api/classes/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"classes",
@@ -475,14 +419,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/classes/1",
+							"raw": "{{address}}/api/classes/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"classes",
@@ -498,14 +438,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/assessments/1",
+							"raw": "{{address}}/api/assessments/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"assessments",
@@ -522,7 +458,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"a_class\"\r\n}",
+							"raw": "{\r\n    \"name\": \"b_class\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -530,14 +466,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/classes/",
+							"raw": "{{address}}/api/classes/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"classes",
@@ -562,14 +494,10 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/api/classes/1",
+							"raw": "{{address}}/api/classes/1",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"api",
 								"classes",
@@ -585,35 +513,6 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "user_list",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "127.0.0.1:8000/auth/users/",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"auth",
-								"users",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "get_auth_token",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
@@ -623,10 +522,17 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://example.com",
+								"type": "default",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"test\",\r\n    \"password\": \"test\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -634,17 +540,89 @@
 							}
 						},
 						"url": {
-							"raw": "127.0.0.1:8000/auth/api-token-auth/",
+							"raw": "{{address}}/auth/login/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{address}}"
 							],
-							"port": "8000",
 							"path": [
 								"auth",
-								"api-token-auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://example.com",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}/auth/logout/",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"auth",
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout_all",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://example.com",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{address}}/auth/logoutall/",
+							"host": [
+								"{{address}}"
+							],
+							"path": [
+								"auth",
+								"logoutall",
 								""
 							]
 						}
@@ -652,9 +630,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "noauth"
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -682,7 +657,7 @@
 		"apikey": [
 			{
 				"key": "value",
-				"value": "Token d61d0a40ff2c4a492489c632e768c0d2d0da8854",
+				"value": "Token {{token}}",
 				"type": "string"
 			},
 			{
@@ -714,8 +689,13 @@
 	],
 	"variable": [
 		{
+			"key": "address",
+			"value": "127.0.0.1:8000",
+			"type": "default"
+		},
+		{
 			"key": "token",
-			"value": "Token 6f97236e764c6a54917caa16f4228a3947cc8f64",
+			"value": "",
 			"type": "default"
 		}
 	]
