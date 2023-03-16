@@ -486,7 +486,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"an_edited_class\"\r\n}",
+							"raw": "{\r\n    \"name\": \"an_edited_class\",\r\n    \"student_set\": [1,2,3,4,5]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -494,14 +494,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{address}}/api/classes/1",
+							"raw": "{{address}}/api/classes/8",
 							"host": [
 								"{{address}}"
 							],
 							"path": [
 								"api",
 								"classes",
-								"1"
+								"8"
 							]
 						}
 					},
@@ -540,13 +540,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{address}}/auth/login/",
+							"raw": "{{address}}/auth/api-token-auth/",
 							"host": [
 								"{{address}}"
 							],
 							"path": [
 								"auth",
-								"login",
+								"api-token-auth",
 								""
 							]
 						}
