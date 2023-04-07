@@ -155,6 +155,8 @@ CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
 
+from datetime import timedelta
+
 REST_KNOX = {
-  'TOKEN_TTL': None,
+  'TOKEN_TTL': timedelta(weeks=2),
 }
