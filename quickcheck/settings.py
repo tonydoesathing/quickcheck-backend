@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
-    'rest_framework.authtoken',
+    'knox',
     'apis',
     'corsheaders',
 ]
@@ -147,13 +147,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'knox.auth.TokenAuthentication',
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ]
 }
 
 CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SECURE = True
+
+from datetime import timedelta
+
+REST_KNOX = {
+  'TOKEN_TTL': timedelta(weeks=2),
+}
